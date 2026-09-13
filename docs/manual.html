@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YouTube Live Tweet 手順書</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --fg: #222222;
+    --sub-fg: #555555;
+    --accent: #2b6cb0;
+    --border: #e2e8f0;
+    --card-bg: #f7f9fb;
+    --warn-bg: #fff8e1;
+    --warn-border: #f0c419;
+    --warn-fg: #6b5300;
+    --tip-bg: #e8f1fb;
+    --tip-border: #2b6cb0;
+    --tip-fg: #1a4971;
+    --code-bg: #1e2530;
+    --code-fg: #e6e6e6;
+    --table-head-bg: #edf2f7;
+    --svg-window-bg: #f2f4f7;
+    --svg-window-border: #b8c2cc;
+    --svg-titlebar-bg: #4a5568;
+    --svg-titlebar-fg: #ffffff;
+    --svg-field-bg: #ffffff;
+    --svg-field-border: #a0aec0;
+    --svg-text: #2d3748;
+    --svg-accent: #2b6cb0;
+    --svg-highlight: #e53935;
+    --svg-manual-bg: #ffb020;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1a1d23;
+      --fg: #e6e6e6;
+      --sub-fg: #a0aab5;
+      --accent: #6fa8dc;
+      --border: #3a3f47;
+      --card-bg: #22262d;
+      --warn-bg: #3a3315;
+      --warn-border: #8a7010;
+      --warn-fg: #f0d878;
+      --tip-bg: #17293a;
+      --tip-border: #4a86c8;
+      --tip-fg: #a9cdf0;
+      --code-bg: #0f1216;
+      --code-fg: #e6e6e6;
+      --table-head-bg: #2a2f37;
+      --svg-window-bg: #2a2f37;
+      --svg-window-border: #545c66;
+      --svg-titlebar-bg: #3a4150;
+      --svg-titlebar-fg: #ffffff;
+      --svg-field-bg: #1c2027;
+      --svg-field-border: #6b7684;
+      --svg-text: #dfe4ea;
+      --svg-accent: #6fa8dc;
+      --svg-highlight: #ff6f66;
+      --svg-manual-bg: #b9860f;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 2rem 1.2rem 5rem;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: system-ui, -apple-system, "Segoe UI", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+    line-height: 1.7;
+    font-size: 16px;
+  }
+  main {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  h1 {
+    font-size: 1.8rem;
+    border-left: 6px solid var(--accent);
+    padding-left: 0.6rem;
+    margin-bottom: 0.3rem;
+  }
+  h2 {
+    font-size: 1.35rem;
+    border-left: 6px solid var(--accent);
+    padding-left: 0.6rem;
+    margin-top: 2.6rem;
+    padding-top: 0.1rem;
+    padding-bottom: 0.1rem;
+  }
+  h3 {
+    font-size: 1.1rem;
+    border-left: 4px solid var(--border);
+    padding-left: 0.5rem;
+    margin-top: 1.6rem;
+  }
+  p { margin: 0.8rem 0; }
+  .subtitle {
+    color: var(--sub-fg);
+    margin-top: 0;
+  }
+  a { color: var(--accent); }
+  ol, ul { padding-left: 1.6rem; }
+  ol li, ul li { margin-bottom: 0.5rem; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0 1.5rem;
+    font-size: 0.95rem;
+  }
+  th, td {
+    border: 1px solid var(--border);
+    padding: 0.55rem 0.7rem;
+    text-align: left;
+    vertical-align: top;
+  }
+  th {
+    background: var(--table-head-bg);
+  }
+  pre {
+    background: var(--code-bg);
+    color: var(--code-fg);
+    padding: 1rem 1.1rem;
+    border-radius: 8px;
+    overflow-x: auto;
+    font-size: 0.92rem;
+    line-height: 1.5;
+  }
+  code {
+    font-family: "Cascadia Code", Consolas, "SF Mono", Menlo, monospace;
+  }
+  p code, li code, td code {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.1rem 0.35rem;
+    font-size: 0.9em;
+  }
+  .box {
+    border-radius: 8px;
+    padding: 1rem 1.2rem;
+    margin: 1.2rem 0;
+    border: 1px solid transparent;
+  }
+  .box-title {
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+  }
+  .box.warn {
+    background: var(--warn-bg);
+    border-color: var(--warn-border);
+    color: var(--warn-fg);
+  }
+  .box.tip {
+    background: var(--tip-bg);
+    border-color: var(--tip-border);
+    color: var(--tip-fg);
+  }
+  figure {
+    margin: 1.4rem 0;
+    padding: 1rem;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    text-align: center;
+  }
+  figure svg {
+    width: 100%;
+    max-width: 820px;
+    height: auto;
+  }
+  figcaption {
+    margin-top: 0.6rem;
+    font-size: 0.9rem;
+    color: var(--sub-fg);
+  }
+  .fig-note {
+    font-size: 0.82rem;
+    color: var(--sub-fg);
+    margin-top: 0.2rem;
+  }
+  section {
+    scroll-margin-top: 1rem;
+  }
+  footer {
+    margin-top: 3rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+    color: var(--sub-fg);
+    font-size: 0.85rem;
+  }
+  .kw {
+    font-weight: 600;
+  }
+</style>
+</head>
+<body>
+<main>
+
+<h1>YouTube Live Tweet 手順書</h1>
+<p class="subtitle">OBS で配信開始を押すと、告知ツイートの下書きが自動で開きます。ポストを押すだけ。</p>
+
+<section id="step1">
+<h2>手順1: ダウンロード</h2>
+<p>
+<code>youtube_live_tweet.lua</code> を、好きな場所(ドキュメントフォルダなど)に保存します。
+</p>
+</section>
+
+<section id="step2">
+<h2>手順2: OBS で選ぶ</h2>
+<p>
+OBS のメニューから<span class="kw">「ツール」→「スクリプト」</span>を開き、左下の<span class="kw">「＋」</span>ボタンを押して、保存した <code>youtube_live_tweet.lua</code> を選びます。
+</p>
+
+<figure>
+<svg viewBox="0 0 700 380" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="OBS スクリプト画面のイメージ">
+  <rect x="10" y="10" width="680" height="360" rx="10" fill="var(--svg-window-bg)" stroke="var(--svg-window-border)" stroke-width="2"></rect>
+  <rect x="10" y="10" width="680" height="36" rx="10" fill="var(--svg-titlebar-bg)"></rect>
+  <rect x="10" y="30" width="680" height="16" fill="var(--svg-titlebar-bg)"></rect>
+  <text x="30" y="34" fill="var(--svg-titlebar-fg)" font-family="system-ui, sans-serif" font-size="14">スクリプト</text>
+  <circle cx="655" cy="28" r="8" fill="none" stroke="var(--svg-titlebar-fg)" stroke-width="1.5"></circle>
+
+  <!-- left: loaded script list -->
+  <text x="30" y="70" font-family="system-ui, sans-serif" font-size="13" fill="var(--sub-fg)">読み込まれたスクリプト</text>
+  <rect x="30" y="80" width="290" height="220" rx="4" fill="var(--svg-field-bg)" stroke="var(--svg-field-border)" stroke-width="1.5"></rect>
+  <rect x="38" y="90" width="274" height="26" rx="3" fill="var(--card-bg)"></rect>
+  <text x="48" y="108" font-family="system-ui, sans-serif" font-size="13" fill="var(--svg-text)">youtube_live_tweet.lua</text>
+
+  <!-- highlighted plus button -->
+  <rect x="30" y="312" width="40" height="34" rx="4" fill="var(--svg-field-bg)" stroke="var(--svg-highlight)" stroke-width="3"></rect>
+  <text x="50" y="335" text-anchor="middle" font-family="system-ui, sans-serif" font-size="18" fill="var(--svg-text)" font-weight="700">＋</text>
+
+  <!-- right: settings panel -->
+  <text x="360" y="70" font-family="system-ui, sans-serif" font-size="13" fill="var(--sub-fg)">スクリプトの設定</text>
+  <rect x="360" y="80" width="310" height="220" rx="4" fill="var(--svg-field-bg)" stroke="var(--svg-field-border)" stroke-width="1.5"></rect>
+  <text x="378" y="105" font-family="system-ui, sans-serif" font-size="12" fill="var(--svg-text)">YouTube チャンネルの URL</text>
+  <rect x="378" y="112" width="270" height="26" rx="3" fill="var(--card-bg)" stroke="var(--svg-field-border)" stroke-width="1"></rect>
+  <text x="378" y="160" font-family="system-ui, sans-serif" font-size="12" fill="var(--svg-text)">投稿文</text>
+  <rect x="378" y="167" width="270" height="40" rx="3" fill="var(--card-bg)" stroke="var(--svg-field-border)" stroke-width="1"></rect>
+  <text x="378" y="228" font-family="system-ui, sans-serif" font-size="12" fill="var(--svg-text)">配信URLを付ける ☑</text>
+</svg>
+</figure>
+<figcaption>図1: OBS の「スクリプト」画面(「＋」ボタンを強調)</figcaption>
+<p class="fig-note">※画面はイメージです。実際の表示とは異なる場合があります。</p>
+</section>
+
+<section id="step3">
+<h2>手順3: チャンネル URL を入れる</h2>
+<p>
+追加すると右側に設定欄が出ます。<span class="kw">「YouTube チャンネルの URL」</span>に、自分のチャンネルページの URL をそのまま貼ります(例 <code>https://www.youtube.com/@xxxx</code>)。
+</p>
+
+<figure>
+<svg viewBox="0 0 700 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="スクリプト設定欄のイメージ">
+  <rect x="10" y="10" width="680" height="340" rx="10" fill="var(--svg-window-bg)" stroke="var(--svg-window-border)" stroke-width="2"></rect>
+  <rect x="10" y="10" width="680" height="36" rx="10" fill="var(--svg-titlebar-bg)"></rect>
+  <rect x="10" y="30" width="680" height="16" fill="var(--svg-titlebar-bg)"></rect>
+  <text x="30" y="34" fill="var(--svg-titlebar-fg)" font-family="system-ui, sans-serif" font-size="14">スクリプトの設定</text>
+  <circle cx="655" cy="28" r="8" fill="none" stroke="var(--svg-titlebar-fg)" stroke-width="1.5"></circle>
+
+  <text x="35" y="72" font-family="system-ui, sans-serif" font-size="13" fill="var(--svg-text)">YouTube チャンネルの URL</text>
+  <rect x="35" y="78" width="630" height="30" rx="4" fill="var(--svg-field-bg)" stroke="var(--svg-highlight)" stroke-width="3"></rect>
+  <text x="46" y="98" font-family="system-ui, sans-serif" font-size="13" fill="var(--svg-text)">https://www.youtube.com/@xxxx</text>
+
+  <text x="35" y="130" font-family="system-ui, sans-serif" font-size="13" fill="var(--svg-text)">投稿文</text>
+  <rect x="35" y="136" width="630" height="44" rx="4" fill="var(--svg-field-bg)" stroke="var(--svg-field-border)" stroke-width="1.5"></rect>
+  <text x="46" y="154" font-family="system-ui, sans-serif" font-size="12" fill="var(--svg-text)">配信はじめました！</text>
+  <text x="46" y="170" font-family="system-ui, sans-serif" font-size="12" fill="var(--svg-text)">{title}</text>
+
+  <rect x="35" y="194" width="18" height="18" fill="var(--svg-field-bg)" stroke="var(--svg-field-border)" stroke-width="1.5"></rect>
+  <path d="M38,203 L43,209 L52,196" stroke="var(--svg-accent)" stroke-width="2" fill="none"></path>
+  <text x="60" y="208" font-family="system-ui, sans-serif" font-size="13" fill="var(--svg-text)">配信URLを付ける</text>
+
+  <text x="35" y="242" font-family="system-ui, sans-serif" font-size="13" fill="var(--svg-text)">取得の間隔(秒)</text>
+  <rect x="220" y="228" width="70" height="26" rx="4" fill="var(--svg-field-bg)" stroke="var(--svg-field-border)" stroke-width="1.5"></rect>
+  <text x="255" y="246" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" fill="var(--svg-text)">5</text>
+
+  <text x="330" y="242" font-family="system-ui, sans-serif" font-size="13" fill="var(--svg-text)">最大待ち時間(秒)</text>
+  <rect x="530" y="228" width="70" height="26" rx="4" fill="var(--svg-field-bg)" stroke="var(--svg-field-border)" stroke-width="1.5"></rect>
+  <text x="565" y="246" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" fill="var(--svg-text)">120</text>
+
+  <rect x="35" y="266" width="18" height="18" fill="var(--svg-field-bg)" stroke="var(--svg-field-border)" stroke-width="1.5"></rect>
+  <path d="M38,275 L43,281 L52,268" stroke="var(--svg-accent)" stroke-width="2" fill="none"></path>
+  <text x="60" y="280" font-family="system-ui, sans-serif" font-size="13" fill="var(--svg-text)">取得できなくても投稿画面を開く</text>
+
+  <rect x="35" y="298" width="270" height="34" rx="4" fill="var(--svg-field-bg)" stroke="var(--svg-field-border)" stroke-width="1.5"></rect>
+  <text x="170" y="320" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" fill="var(--svg-text)">テスト: 今すぐ投稿画面を開く</text>
+</svg>
+</figure>
+<figcaption>図2: スクリプトの設定欄(URL 欄を強調)</figcaption>
+<p class="fig-note">※画面はイメージです。実際の表示とは異なる場合があります。</p>
+
+<p>他の項目はそのままで OK です。</p>
+<p>投稿文は好みで変えてよいです(<code>{title}</code> の部分に配信タイトルが入ります)。</p>
+
+<div class="box tip">
+  <div class="box-title">ヒント: チャンネル URL の調べ方</div>
+  YouTube で自分のアイコンをクリックし、「チャンネルを表示」を選びます。表示されたページのアドレスバーの URL をコピーして、上の欄に貼ります。
+</div>
+</section>
+
+<section id="usage">
+<h2>これで完了。使い方</h2>
+<p>
+配信開始を押す → しばらくすると投稿画面が開く → 内容を確認して「ポストする」を押す。
+</p>
+
+<figure>
+<svg viewBox="0 0 700 340" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="X の投稿作成画面のイメージ">
+  <rect x="10" y="10" width="680" height="320" rx="10" fill="var(--svg-window-bg)" stroke="var(--svg-window-border)" stroke-width="2"></rect>
+  <rect x="10" y="10" width="680" height="36" rx="10" fill="var(--svg-titlebar-bg)"></rect>
+  <rect x="10" y="30" width="680" height="16" fill="var(--svg-titlebar-bg)"></rect>
+  <text x="30" y="34" fill="var(--svg-titlebar-fg)" font-family="system-ui, sans-serif" font-size="14">ポストを作成</text>
+  <circle cx="655" cy="28" r="8" fill="none" stroke="var(--svg-titlebar-fg)" stroke-width="1.5"></circle>
+
+  <rect x="40" y="65" width="620" height="110" rx="6" fill="var(--svg-field-bg)" stroke="var(--svg-field-border)" stroke-width="1.5"></rect>
+  <text x="55" y="95" font-family="system-ui, sans-serif" font-size="15" fill="var(--svg-text)">配信はじめました！</text>
+  <text x="55" y="120" font-family="system-ui, sans-serif" font-size="15" fill="var(--svg-text)">今日の配信タイトル</text>
+
+  <rect x="40" y="190" width="620" height="80" rx="6" fill="var(--svg-window-bg)" stroke="var(--svg-field-border)" stroke-width="1.5"></rect>
+  <rect x="52" y="202" width="70" height="56" rx="4" fill="var(--svg-field-border)"></rect>
+  <text x="132" y="222" font-family="system-ui, sans-serif" font-size="13" fill="var(--svg-text)">youtube.com</text>
+  <text x="132" y="242" font-family="system-ui, sans-serif" font-size="12" fill="var(--svg-text)">今日の配信タイトル - LIVE</text>
+
+  <rect x="500" y="285" width="150" height="38" rx="19" fill="var(--svg-accent)" stroke="var(--svg-highlight)" stroke-width="3"></rect>
+  <text x="575" y="309" text-anchor="middle" font-family="system-ui, sans-serif" font-size="15" fill="#ffffff" font-weight="700">ポストする</text>
+</svg>
+</figure>
+<figcaption>図3: X の投稿作成画面(「ポストする」ボタンを強調)</figcaption>
+<p class="fig-note">※画面はイメージです。実際の表示とは異なる場合があります。</p>
+
+<p>先に試したいときは「テスト: 今すぐ投稿画面を開く」を押します(配信中でないとタイトルは空で開きます)。</p>
+</section>
+
+<section id="trouble">
+<h2>うまくいかないとき</h2>
+<table>
+  <thead><tr><th>症状</th><th>対処</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>何も開かない</td>
+      <td>URL が違うかもしれません。設定欄の一番下のステータス表示を確認し、「スクリプトログ」ボタンでログを見てください。</td>
+    </tr>
+    <tr>
+      <td>X のログイン画面が出る</td>
+      <td>ブラウザで X にログインしてください。</td>
+    </tr>
+    <tr>
+      <td>タイトルが空で開く</td>
+      <td>YouTube 側の反映が遅いだけです。手で入力してください。「最大待ち時間」を増やすと解決する場合があります。</td>
+    </tr>
+    <tr>
+      <td>同じ配信でもう一度開きたい</td>
+      <td>「テスト: 今すぐ投稿画面を開く」ボタンを押してください。</td>
+    </tr>
+    <tr>
+      <td>ゲームが最小化された</td>
+      <td>ゲームをボーダーレスウィンドウにするか、配信開始直後の待機画面の間にポストしてください。</td>
+    </tr>
+    <tr>
+      <td>OBS を入れ直したら消えた</td>
+      <td>手順2からやり直してください。</td>
+    </tr>
+  </tbody>
+</table>
+<p>解決しないときは配布ページ(<a href="https://github.com/acalbase/autoTweet/issues">GitHub の Issues</a>)で、OBS のバージョンとスクリプトログの内容を添えて報告してください。</p>
+</section>
+
+<div class="box warn">
+  <div class="box-title">注意</div>
+  最後の「ポストする」は自分で押します(自動では投稿されません)。
+</div>
+
+<footer>
+YouTube Live Tweet 手順書
+</footer>
+
+</main>
+</body>
+</html>

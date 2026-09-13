@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YouTube Live Tweet 手順書</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --fg: #222222;
+    --sub-fg: #555555;
+    --accent: #2b6cb0;
+    --border: #e2e8f0;
+    --card-bg: #f7f9fb;
+    --warn-bg: #fff8e1;
+    --warn-border: #f0c419;
+    --warn-fg: #6b5300;
+    --tip-bg: #e8f1fb;
+    --tip-border: #2b6cb0;
+    --tip-fg: #1a4971;
+    --code-bg: #1e2530;
+    --code-fg: #e6e6e6;
+    --table-head-bg: #edf2f7;
+    --svg-window-bg: #f2f4f7;
+    --svg-window-border: #b8c2cc;
+    --svg-titlebar-bg: #4a5568;
+    --svg-titlebar-fg: #ffffff;
+    --svg-field-bg: #ffffff;
+    --svg-field-border: #a0aec0;
+    --svg-text: #2d3748;
+    --svg-accent: #2b6cb0;
+    --svg-highlight: #e53935;
+    --svg-manual-bg: #ffb020;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1a1d23;
+      --fg: #e6e6e6;
+      --sub-fg: #a0aab5;
+      --accent: #6fa8dc;
+      --border: #3a3f47;
+      --card-bg: #22262d;
+      --warn-bg: #3a3315;
+      --warn-border: #8a7010;
+      --warn-fg: #f0d878;
+      --tip-bg: #17293a;
+      --tip-border: #4a86c8;
+      --tip-fg: #a9cdf0;
+      --code-bg: #0f1216;
+      --code-fg: #e6e6e6;
+      --table-head-bg: #2a2f37;
+      --svg-window-bg: #2a2f37;
+      --svg-window-border: #545c66;
+      --svg-titlebar-bg: #3a4150;
+      --svg-titlebar-fg: #ffffff;
+      --svg-field-bg: #1c2027;
+      --svg-field-border: #6b7684;
+      --svg-text: #dfe4ea;
+      --svg-accent: #6fa8dc;
+      --svg-highlight: #ff6f66;
+      --svg-manual-bg: #b9860f;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 2rem 1.2rem 5rem;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: system-ui, -apple-system, "Segoe UI", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+    line-height: 1.7;
+    font-size: 16px;
+  }
+  main {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  h1 {
+    font-size: 1.8rem;
+    border-left: 6px solid var(--accent);
+    padding-left: 0.6rem;
+    margin-bottom: 0.3rem;
+  }
+  h2 {
+    font-size: 1.35rem;
+    border-left: 6px solid var(--accent);
+    padding-left: 0.6rem;
+    margin-top: 2.6rem;
+    padding-top: 0.1rem;
+    padding-bottom: 0.1rem;
+  }
+  h3 {
+    font-size: 1.1rem;
+    border-left: 4px solid var(--border);
+    padding-left: 0.5rem;
+    margin-top: 1.6rem;
+  }
+  p { margin: 0.8rem 0; }
+  .subtitle {
+    color: var(--sub-fg);
+    margin-top: 0;
+  }
+  a { color: var(--accent); }
+  ol, ul { padding-left: 1.6rem; }
+  ol li, ul li { margin-bottom: 0.5rem; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0 1.5rem;
+    font-size: 0.95rem;
+  }
+  th, td {
+    border: 1px solid var(--border);
+    padding: 0.55rem 0.7rem;
+    text-align: left;
+    vertical-align: top;
+  }
+  th {
+    background: var(--table-head-bg);
+  }
+  pre {
+    background: var(--code-bg);
+    color: var(--code-fg);
+    padding: 1rem 1.1rem;
+    border-radius: 8px;
+    overflow-x: auto;
+    font-size: 0.92rem;
+    line-height: 1.5;
+  }
+  code {
+    font-family: "Cascadia Code", Consolas, "SF Mono", Menlo, monospace;
+  }
+  p code, li code, td code {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.1rem 0.35rem;
+    font-size: 0.9em;
+  }
+  .box {
+    border-radius: 8px;
+    padding: 1rem 1.2rem;
+    margin: 1.2rem 0;
+    border: 1px solid transparent;
+  }
+  .box-title {
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+  }
+  .box.warn {
+    background: var(--warn-bg);
+    border-color: var(--warn-border);
+    color: var(--warn-fg);
+  }
+  .box.tip {
+    background: var(--tip-bg);
+    border-color: var(--tip-border);
+    color: var(--tip-fg);
+  }
+  figure {
+    margin: 1.4rem 0;
+    padding: 1rem;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    text-align: center;
+  }
+  figure svg {
+    width: 100%;
+    max-width: 820px;
+    height: auto;
+  }
+  figcaption {
+    margin-top: 0.6rem;
+    font-size: 0.9rem;
+    color: var(--sub-fg);
+  }
+  .fig-note {
+    font-size: 0.82rem;
+    color: var(--sub-fg);
+    margin-top: 0.2rem;
+  }
+  nav.toc {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.2rem 1.5rem;
+    margin: 1.5rem 0 2.5rem;
+  }
+  nav.toc h2 {
+    margin-top: 0;
+    font-size: 1.1rem;
+  }
+  nav.toc ol {
+    margin: 0.5rem 0 0;
+  }
+  nav.toc a {
+    text-decoration: none;
+  }
+  nav.toc a:hover {
+    text-decoration: underline;
+  }
+  section {
+    scroll-margin-top: 1rem;
+  }
+  footer {
+    margin-top: 3rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+    color: var(--sub-fg);
+    font-size: 0.85rem;
+  }
+  .kw {
+    font-weight: 600;
+  }
+</style>
+</head>
+<body>
+<main>
+
+<h1>YouTube Live Tweet 手順書</h1>
+<p class="subtitle">ゲーム配信者向け・セットアップから日々の使い方まで(PowerShell版・バックグラウンド常駐)</p>
+
+<nav class="toc" aria-label="目次">
+  <h2>目次</h2>
+  <ol>
+    <li><a href="#what">これは何?</a></li>
+    <li><a href="#how-it-works">仕組み(図1)</a></li>
+    <li><a href="#requirements">必要なもの</a></li>
+    <li><a href="#step1">手順1: フォルダを置く</a></li>
+    <li><a href="#step2">手順2: OBS の WebSocket を有効化</a></li>
+    <li><a href="#step3">手順3: 設定ファイルを作る</a></li>
+    <li><a href="#step3-templates">投稿文テンプレートの例</a></li>
+    <li><a href="#step4">手順4: 動作確認</a></li>
+    <li><a href="#step5">手順5: 配信の流れに組み込む</a></li>
+    <li><a href="#fullscreen">フルスクリーンのゲーム中に投稿画面が開いたら</a></li>
+    <li><a href="#step6">手順6(任意): Windows 起動時に自動開始</a></li>
+    <li><a href="#trouble">困ったときは</a></li>
+    <li><a href="#limits">制限事項</a></li>
+  </ol>
+</nav>
+
+<section id="what">
+<h2>1. これは何?</h2>
+<p>
+OBS で配信開始を押すと、告知ツイートの下書き画面が自動で開きます。ポストを押すだけです。
+</p>
+<ul>
+  <li><span class="kw">できる</span>: タイトルと URL 入りの下書きが自動で開く</li>
+  <li><span class="kw">できない</span>: ポストボタンは自分で押す</li>
+</ul>
+</section>
+
+<section id="how-it-works">
+<h2>2. 仕組み(図1)</h2>
+<p>OBS の配信開始を検知 → YouTube から配信タイトルを取得 → X の投稿画面を開く、をこのツールがバックグラウンドで行います。</p>
+
+<figure>
+<svg viewBox="0 0 900 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="仕組みのフロー図">
+  <style>
+    .flow-box text { font-family: system-ui, sans-serif; }
+    .flow-label { font-size: 15px; fill: var(--svg-text); }
+    .flow-sub { font-size: 12px; fill: var(--svg-text); }
+    .flow-arrow { stroke: var(--svg-text); stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+  </style>
+  <defs>
+    <marker id="arrowhead" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="var(--svg-text)"></path>
+    </marker>
+  </defs>
+
+  <!-- box 1 -->
+  <rect x="10" y="60" width="150" height="90" rx="10" fill="var(--svg-window-bg)" stroke="var(--svg-window-border)" stroke-width="2"></rect>
+  <text x="85" y="98" text-anchor="middle" class="flow-label">OBS で</text>
+  <text x="85" y="118" text-anchor="middle" class="flow-label">配信開始</text>
+
+  <path class="flow-arrow" d="M162,105 L188,105"></path>
+
+  <!-- box 2 -->
+  <rect x="190" y="60" width="150" height="90" rx="10" fill="var(--svg-window-bg)" stroke="var(--svg-window-border)" stroke-width="2"></rect>
+  <text x="265" y="98" text-anchor="middle" class="flow-label">本ツール</text>
+  <text x="265" y="118" text-anchor="middle" class="flow-sub">(バックグラウンド常駐)</text>
+
+  <path class="flow-arrow" d="M342,105 L368,105"></path>
+
+  <!-- box 3 -->
+  <rect x="370" y="50" width="160" height="110" rx="10" fill="var(--svg-window-bg)" stroke="var(--svg-window-border)" stroke-width="2"></rect>
+  <text x="450" y="90" text-anchor="middle" class="flow-label">YouTube から</text>
+  <text x="450" y="110" text-anchor="middle" class="flow-label">配信タイトル・</text>
+  <text x="450" y="130" text-anchor="middle" class="flow-label">URLを取得</text>
+
+  <path class="flow-arrow" d="M532,105 L558,105"></path>
+
+  <!-- box 4 -->
+  <rect x="560" y="50" width="160" height="110" rx="10" fill="var(--svg-window-bg)" stroke="var(--svg-window-border)" stroke-width="2"></rect>
+  <text x="640" y="90" text-anchor="middle" class="flow-label">Xの投稿画面を</text>
+  <text x="640" y="110" text-anchor="middle" class="flow-label">ブラウザで</text>
+  <text x="640" y="130" text-anchor="middle" class="flow-label">開く</text>
+
+  <path class="flow-arrow" d="M722,105 L748,105"></path>
+
+  <!-- box 5 (manual) -->
+  <rect x="750" y="40" width="145" height="130" rx="10" fill="var(--svg-manual-bg)" stroke="var(--svg-highlight)" stroke-width="3"></rect>
+  <text x="822" y="80" text-anchor="middle" class="flow-label" font-weight="700">あなたが</text>
+  <text x="822" y="100" text-anchor="middle" class="flow-label" font-weight="700">「ポストする」</text>
+  <text x="822" y="120" text-anchor="middle" class="flow-label" font-weight="700">を押す</text>
+  <text x="822" y="150" text-anchor="middle" class="flow-sub" font-weight="700">ここだけ手動</text>
+</svg>
+</figure>
+<figcaption>図1: 配信開始から投稿までの流れ</figcaption>
+<p class="fig-note">※画面はイメージです。実際の表示とは異なる場合があります。</p>
+</section>
+
+<section id="requirements">
+<h2>3. 必要なもの</h2>
+<ul>
+  <li>Windows 10 / 11</li>
+  <li>OBS 28 以上</li>
+  <li>ブラウザで X にログイン済み</li>
+  <li>自分の YouTube チャンネルの URL</li>
+</ul>
+<p class="fig-note">インストール不要(PowerShell スクリプトとして動作します)。</p>
+</section>
+
+<section id="step1">
+<h2>4. 手順1: フォルダを置く</h2>
+<ul>
+  <li><code>youtube-live-tweet</code> フォルダを、好きな場所(デスクトップやドキュメントなど)に置きます。</li>
+</ul>
+
+<figure>
+<svg viewBox="0 0 700 380" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="powershell フォルダ内のファイル一覧のイメージ">
+  <rect x="10" y="10" width="680" height="360" rx="10" fill="var(--svg-window-bg)" stroke="var(--svg-window-border)" stroke-width="2"></rect>
+  <rect x="10" y="10" width="680" height="36" rx="10" fill="var(--svg-titlebar-bg)"></rect>
+  <rect x="10" y="30" width="680" height="16" fill="var(--svg-titlebar-bg)"></rect>
+  <text x="30" y="34" fill="var(--svg-titlebar-fg)" font-family="system-ui, sans-serif" font-size="14">powershell</text>
+  <circle cx="655" cy="28" r="8" fill="none" stroke="var(--svg-titlebar-fg)" stroke-width="1.5"></circle>
+
+  <!-- file rows -->
+  <rect x="30" y="58" width="640" height="30" rx="4" fill="var(--svg-field-bg)" stroke="var(--svg-field-border)" stroke-width="1"></rect>
+  <text x="46" y="78" font-family="system-ui, sans-serif" font-size="14" fill="var(--svg-text)">YoutubeLiveTweet.ps1</text>
+
+  <rect x="30" y="92" width="640" height="30" rx="4" fill="none" stroke="var(--svg-highlight)" stroke-width="3"></rect>
+  <text x="46" y="112" font-family="system-ui, sans-serif" font-size="14" fill="var(--svg-text)" font-weight="700">config.example.json</text>
+
+  <rect x="30" y="126" width="640" height="30" rx="4" fill="var(--svg-field-bg)" stroke="var(--svg-field-border)" stroke-width="1"></rect>
+  <text x="46" y="146" font-family="system-ui, sans-serif" font-size="14" fill="var(--svg-text)">config.json</text>
+  <text x="440" y="146" font-family="system-ui, sans-serif" font-size="12" fill="var(--sub-fg)">(まだ無ければ手順3で作成)</text>
+
+  <rect x="30" y="160" width="640" height="30" rx="4" fill="var(--svg-field-bg)" stroke="var(--svg-field-border)" stroke-width="1"></rect>
+  <text x="46" y="180" font-family="system-ui, sans-serif" font-size="14" fill="var(--svg-text)">start.bat</text>
+
+  <rect x="30" y="194" width="640" height="30" rx="4" fill="none" stroke="var(--svg-highlight)" stroke-width="3"></rect>
+  <text x="46" y="214" font-family="system-ui, sans-serif" font-size="14" fill="var(--svg-text)" font-weight="700">start-hidden.vbs</text>
+
+  <rect x="30" y="228" width="640" height="30" rx="4" fill="var(--svg-field-bg)" stroke="var(--svg-field-border)" stroke-width="1"></rect>
+  <text x="46" y="248" font-family="system-ui, sans-serif" font-size="14" fill="var(--svg-text)">stop.bat</text>
+
+  <rect x="30" y="262" width="640" height="30" rx="4" fill="var(--svg-field-bg)" stroke="var(--svg-field-border)" stroke-width="1"></rect>
+  <text x="46" y="282" font-family="system-ui, sans-serif" font-size="14" fill="var(--svg-text)">test.bat</text>
+
+  <rect x="30" y="296" width="640" height="30" rx="4" fill="var(--svg-field-bg)" stroke="var(--svg-field-border)" stroke-width="1"></rect>
+  <text x="46" y="316" font-family="system-ui, sans-serif" font-size="14" fill="var(--svg-text)">live-tweet.log</text>
+  <text x="440" y="316" font-family="system-ui, sans-serif" font-size="12" fill="var(--sub-fg)">(実行時に自動生成)</text>
+
+  <rect x="30" y="330" width="640" height="30" rx="4" fill="var(--svg-field-bg)" stroke="var(--svg-field-border)" stroke-width="1"></rect>
+  <text x="46" y="350" font-family="system-ui, sans-serif" font-size="14" fill="var(--svg-text)">state.json</text>
+  <text x="440" y="350" font-family="system-ui, sans-serif" font-size="12" fill="var(--sub-fg)">(実行時に自動生成)</text>
+</svg>
+</figure>
+<figcaption>図2: powershell フォルダの中のファイル一覧(重要なファイルを強調)</figcaption>
+<p class="fig-note">※画面はイメージです。実際の表示とは異なる場合があります。</p>
+</section>
+
+<section id="step2">
+<h2>5. 手順2: OBS の WebSocket を有効化</h2>
+<p>
+OBS の <span class="kw">WebSocket</span>(配信状態を外部に伝える通信機能)を有効にすると、配信開始をこのツールが検知できるようになります。
+</p>
+<ol>
+  <li>OBS のメニューから <span class="kw">「ツール」→「WebSocket サーバー設定」</span>を開きます。</li>
+  <li>「WebSocket サーバーを有効にする」にチェックを入れます(下図の赤枠部分)。</li>
+  <li>サーバーポートは既定の <code>4455</code> のままで構いません。</li>
+  <li>「認証を有効にする」をオンにした場合は、「サーバーパスワード」欄に表示されているパスワードを覚えておきます。</li>
+</ol>
+
+<figure>
+<svg viewBox="0 0 700 380" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="OBS WebSocket サーバー設定ダイアログのイメージ">
+  <rect x="10" y="10" width="680" height="360" rx="10" fill="var(--svg-window-bg)" stroke="var(--svg-window-border)" stroke-width="2"></rect>
+  <rect x="10" y="10" width="680" height="36" rx="10" fill="var(--svg-titlebar-bg)"></rect>
+  <rect x="10" y="30" width="680" height="16" fill="var(--svg-titlebar-bg)"></rect>
+  <text x="30" y="34" fill="var(--svg-titlebar-fg)" font-family="system-ui, sans-serif" font-size="14">WebSocket サーバー設定</text>
+  <circle cx="655" cy="28" r="8" fill="none" stroke="var(--svg-titlebar-fg)" stroke-width="1.5"></circle>
+
+  <rect x="40" y="70" width="18" height="18" fill="var(--svg-field-bg)" stroke="var(--svg-highlight)" stroke-width="3"></rect>
+  <path d="M43,79 L48,85 L57,72" stroke="var(--svg-accent)" stroke-width="2.5" fill="none"></path>
+  <text x="68" y="84" font-family="system-ui, sans-serif" font-size="15" fill="var(--svg-text)" font-weight="700">WebSocket サーバーを有効にする</text>
+
+  <text x="40" y="130" font-family="system-ui, sans-serif" font-size="14" fill="var(--svg-text)">サーバーポート</text>
+  <rect x="220" y="112" width="100" height="30" rx="4" fill="var(--svg-field-bg)" stroke="var(--svg-field-border)" stroke-width="1.5"></rect>
+  <text x="270" y="132" text-anchor="middle" font-family="system-ui, sans-serif" font-size="14" fill="var(--svg-text)">4455</text>
+
+  <rect x="40" y="165" width="18" height="18" fill="var(--svg-field-bg)" stroke="var(--svg-field-border)" stroke-width="1.5"></rect>
+  <path d="M43,174 L48,180 L57,167" stroke="var(--svg-accent)" stroke-width="2" fill="none"></path>
+  <text x="68" y="179" font-family="system-ui, sans-serif" font-size="15" fill="var(--svg-text)">認証を有効にする</text>
+
+  <text x="40" y="225" font-family="system-ui, sans-serif" font-size="14" fill="var(--svg-text)">サーバーパスワード</text>
+  <rect x="220" y="207" width="260" height="30" rx="4" fill="var(--svg-field-bg)" stroke="var(--svg-field-border)" stroke-width="1.5"></rect>
+  <text x="235" y="227" font-family="system-ui, sans-serif" font-size="14" fill="var(--svg-text)">••••••••••</text>
+
+  <rect x="380" y="310" width="140" height="36" rx="4" fill="var(--svg-field-bg)" stroke="var(--svg-field-border)" stroke-width="1.5"></rect>
+  <text x="450" y="333" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" fill="var(--svg-text)">接続情報を表示</text>
+
+  <rect x="540" y="310" width="110" height="36" rx="4" fill="var(--svg-field-bg)" stroke="var(--svg-field-border)" stroke-width="1.5"></rect>
+  <text x="595" y="333" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" fill="var(--svg-text)">OK</text>
+</svg>
+</figure>
+<figcaption>図3: OBS WebSocket サーバー設定ダイアログ</figcaption>
+<p class="fig-note">※画面はイメージです。実際の表示とは異なる場合があります。</p>
+
+<div class="box tip">
+  <div class="box-title">ヒント</div>
+  パスワードを設定した場合は、次の手順3で作成する <code>config.json</code> の <code>obs.password</code> にそのパスワードを書き込みます。パスワードを設定していない場合は空文字 <code>""</code> のままで構いません。ポートは <code>4455</code> のままであれば <code>obs.port</code> も変更不要です。
+</div>
+</section>
+
+<section id="step3">
+<h2>6. 手順3: 設定ファイルを作る</h2>
+<ol>
+  <li>エクスプローラで <code>powershell</code> フォルダを開きます。</li>
+  <li><code>config.example.json</code> を右クリックし、「コピー」→ 同じフォルダ内に「貼り付け」します(<code>config.example.json のコピー</code> のようなファイルができます)。</li>
+  <li>そのコピーを右クリックして「名前の変更」を選び、<code>config.json</code> に変更します。</li>
+  <li><code>config.json</code> をメモ帳などのテキストエディタで開き、内容を編集します。</li>
+</ol>
+
+<pre><code>{
+  "obs": { "host": "localhost", "port": 4455, "password": "" },
+  "youtube": { "channel": "@your_handle" },
+  "tweet": { "text": "配信はじめました！\n{title}", "include_url": true },
+  "resolve": { "retry_interval_sec": 5, "timeout_sec": 120 },
+  "fallback_open_when_unresolved": true
+}</code></pre>
+
+<table>
+  <thead><tr><th>項目</th><th>説明</th></tr></thead>
+  <tbody>
+    <tr><td><code>obs.host</code> / <code>obs.port</code></td><td>OBS WebSocket サーバーのホスト・ポート。通常は変更不要(ポートは手順2で確認した番号)。</td></tr>
+    <tr><td><code>obs.password</code></td><td>OBS WebSocket サーバーのパスワード。手順2で設定していなければ空文字 <code>""</code> のまま。</td></tr>
+    <tr><td><code>youtube.channel</code></td><td>監視対象チャンネル。<code>@handle</code> 形式、または <code>UC...</code> のチャンネルID形式。調べ方は下記参照。</td></tr>
+    <tr><td><code>tweet.text</code></td><td>投稿文のテンプレート。<code>{title}</code>(配信タイトル)・<code>{url}</code>(配信URL)のプレースホルダが使えます。</td></tr>
+    <tr><td><code>tweet.include_url</code></td><td><code>true</code> の場合、投稿画面の URL カードに配信URLを渡します(<code>text</code> 内の <code>{url}</code> にも展開されます)。</td></tr>
+    <tr><td><code>resolve.retry_interval_sec</code></td><td>YouTube 側の反映待ちのリトライ間隔(秒)。</td></tr>
+    <tr><td><code>resolve.timeout_sec</code></td><td>リトライを諦めるまでの時間(秒)。</td></tr>
+    <tr><td><code>fallback_open_when_unresolved</code></td><td>タイムアウトしてもライブ情報が取得できなかった場合に、タイトル空・チャンネルの <code>/live</code> URL で投稿画面を開くかどうか。</td></tr>
+  </tbody>
+</table>
+
+<h3>youtube.channel の調べ方</h3>
+<p>
+ブラウザで自分の YouTube チャンネルページを開き、アドレスバーの URL を確認します。
+<code>https://www.youtube.com/@xxxx</code> のような形になっているので、<code>@xxxx</code> の部分をそのまま <code>youtube.channel</code> に書きます。
+</p>
+
+<figure>
+<svg viewBox="0 0 700 90" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ブラウザのアドレスバーのイメージ">
+  <rect x="10" y="10" width="680" height="70" rx="10" fill="var(--svg-window-bg)" stroke="var(--svg-window-border)" stroke-width="2"></rect>
+  <rect x="30" y="28" width="620" height="34" rx="17" fill="var(--svg-field-bg)" stroke="var(--svg-field-border)" stroke-width="1.5"></rect>
+  <text x="50" y="50" font-family="system-ui, sans-serif" font-size="15" fill="var(--svg-text)">https://www.youtube.com/</text>
+  <rect x="222" y="34" width="90" height="22" fill="none" stroke="var(--svg-highlight)" stroke-width="3"></rect>
+  <text x="227" y="50" font-family="system-ui, sans-serif" font-size="15" fill="var(--svg-text)" font-weight="700">@xxxx</text>
+</svg>
+</figure>
+<figcaption>図4: ブラウザのアドレスバー(チャンネルハンドルの部分を強調)</figcaption>
+<p class="fig-note">※画面はイメージです。実際の表示とは異なる場合があります。</p>
+
+<div class="box warn">
+  <div class="box-title">注意</div>
+  <ul style="margin:0.3rem 0 0;">
+    <li>JSON ファイルは書き方のルールが厳密です。<span class="kw">最後の項目の後にカンマを付けない</span>こと、<code>true</code> / <code>false</code> には<span class="kw">クォート(引用符)を付けない</span>ことに注意してください(<code>"true"</code> ではなく <code>true</code>)。</li>
+    <li>改行を入れたい場合は <code>\n</code> と書きます(<code>tweet.text</code> の例を参照)。</li>
+    <li><code>tweet.text</code> の中で <code>{</code> や <code>}</code> をプレースホルダではなく普通の文字として使いたい場合は、<code>{{</code> と <code>}}</code> のように2重にして書いてください。</li>
+  </ul>
+</div>
+
+<h3 id="step3-templates">投稿文テンプレートの例</h3>
+<p>
+<code>tweet.text</code> はゲーム配信らしい文面に自由に変えられます。よく使われそうな3パターンを挙げます。
+</p>
+<table>
+  <thead><tr><th>タイプ</th><th><code>tweet.text</code> の値</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>シンプル</td>
+      <td><code>配信はじめました！\n{title}</code></td>
+    </tr>
+    <tr>
+      <td>ハッシュタグ付き</td>
+      <td><code>🔴 配信開始！\n{title}\n#ゲーム実況 #YouTubeLive</code></td>
+    </tr>
+    <tr>
+      <td>参加型</td>
+      <td><code>【参加型】配信はじめました！\n{title}\n参加希望はコメントで！</code></td>
+    </tr>
+  </tbody>
+</table>
+<p>
+<code>{title}</code> には YouTube 側で設定した配信タイトルがそのまま入ります。たとえば配信タイトルを
+「【エルデンリング】初見プレイ #12 ラスボスまで行く」にしておけば、ゲーム名やシリーズ番号を
+<code>tweet.text</code> 側に毎回書き直す必要はありません。ハッシュタグも問題なくそのまま投稿文に入ります。
+投稿画面は<span class="kw">開くだけ</span>で投稿はされないので、ポストする前に自由に書き足しても構いません。
+</p>
+</section>
+
+<section id="step4">
+<h2>7. 手順4: 動作確認</h2>
+<ul>
+  <li>実際に配信中の状態で、<code>test.bat</code> を<span class="kw">ダブルクリック</span>すると、1回だけ投稿画面が開きます(OBS を起動していなくても試せます)。</li>
+</ul>
+
+<figure>
+<svg viewBox="0 0 700 340" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="X の投稿作成画面のイメージ">
+  <rect x="10" y="10" width="680" height="320" rx="10" fill="var(--svg-window-bg)" stroke="var(--svg-window-border)" stroke-width="2"></rect>
+  <rect x="10" y="10" width="680" height="36" rx="10" fill="var(--svg-titlebar-bg)"></rect>
+  <rect x="10" y="30" width="680" height="16" fill="var(--svg-titlebar-bg)"></rect>
+  <text x="30" y="34" fill="var(--svg-titlebar-fg)" font-family="system-ui, sans-serif" font-size="14">ポストを作成</text>
+  <circle cx="655" cy="28" r="8" fill="none" stroke="var(--svg-titlebar-fg)" stroke-width="1.5"></circle>
+
+  <rect x="40" y="65" width="620" height="110" rx="6" fill="var(--svg-field-bg)" stroke="var(--svg-field-border)" stroke-width="1.5"></rect>
+  <text x="55" y="95" font-family="system-ui, sans-serif" font-size="15" fill="var(--svg-text)">配信はじめました！</text>
+  <text x="55" y="120" font-family="system-ui, sans-serif" font-size="15" fill="var(--svg-text)">今日の配信タイトル</text>
+
+  <rect x="40" y="190" width="620" height="80" rx="6" fill="var(--svg-window-bg)" stroke="var(--svg-field-border)" stroke-width="1.5"></rect>
+  <rect x="52" y="202" width="70" height="56" rx="4" fill="var(--svg-field-border)"></rect>
+  <text x="132" y="222" font-family="system-ui, sans-serif" font-size="13" fill="var(--svg-text)">youtube.com</text>
+  <text x="132" y="242" font-family="system-ui, sans-serif" font-size="12" fill="var(--svg-text)">今日の配信タイトル - LIVE</text>
+
+  <rect x="500" y="285" width="150" height="38" rx="19" fill="var(--svg-accent)" stroke="var(--svg-highlight)" stroke-width="3"></rect>
+  <text x="575" y="309" text-anchor="middle" font-family="system-ui, sans-serif" font-size="15" fill="#ffffff" font-weight="700">ポストする</text>
+</svg>
+</figure>
+<figcaption>図5: X の投稿作成画面(「ポストする」ボタンを強調)</figcaption>
+<p class="fig-note">※画面はイメージです。実際の表示とは異なる場合があります。</p>
+
+<div class="box tip">
+  <div class="box-title">ヒント</div>
+  配信していない状態で <code>test.bat</code> を実行した場合、<code>resolve.timeout_sec</code>(既定120秒=2分)だけ待ってからライブ情報が取得できず、<code>fallback_open_when_unresolved</code> が <code>true</code> ならタイトル空・チャンネルの <code>/live</code> URL で投稿画面が開きます。
+</div>
+</section>
+
+<section id="step5">
+<h2>8. 手順5: 配信の流れに組み込む</h2>
+
+<figure>
+<svg viewBox="0 0 980 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="配信の流れに組み込んだ場合のタイムライン図">
+  <style>
+    .tl-box text { font-family: system-ui, sans-serif; }
+    .tl-label { font-size: 13.5px; fill: var(--svg-text); }
+    .tl-sub { font-size: 11px; fill: var(--sub-fg); }
+    .tl-arrow { stroke: var(--svg-text); stroke-width: 2; fill: none; marker-end: url(#arrowhead2); }
+  </style>
+  <defs>
+    <marker id="arrowhead2" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="var(--svg-text)"></path>
+    </marker>
+  </defs>
+
+  <!-- box 1 -->
+  <rect x="10" y="70" width="150" height="90" rx="10" fill="var(--svg-window-bg)" stroke="var(--svg-window-border)" stroke-width="2"></rect>
+  <text x="85" y="105" text-anchor="middle" class="tl-label">PC 起動</text>
+  <text x="85" y="123" text-anchor="middle" class="tl-sub">(手順6済みなら</text>
+  <text x="85" y="137" text-anchor="middle" class="tl-sub">自動で常駐開始)</text>
+
+  <path class="tl-arrow" d="M162,115 L188,115"></path>
+
+  <!-- box 2 -->
+  <rect x="190" y="70" width="150" height="90" rx="10" fill="var(--svg-window-bg)" stroke="var(--svg-window-border)" stroke-width="2"></rect>
+  <text x="265" y="110" text-anchor="middle" class="tl-label">OBS 起動</text>
+  <text x="265" y="130" text-anchor="middle" class="tl-label">ゲーム起動</text>
+
+  <path class="tl-arrow" d="M342,115 L368,115"></path>
+
+  <!-- box 3 -->
+  <rect x="370" y="70" width="150" height="90" rx="10" fill="var(--svg-window-bg)" stroke="var(--svg-window-border)" stroke-width="2"></rect>
+  <text x="445" y="110" text-anchor="middle" class="tl-label">OBS で</text>
+  <text x="445" y="130" text-anchor="middle" class="tl-label">配信開始</text>
+
+  <path class="tl-arrow" d="M522,115 L548,115"></path>
+
+  <!-- box 4 (manual, highlighted) -->
+  <rect x="550" y="30" width="190" height="170" rx="10" fill="var(--svg-manual-bg)" stroke="var(--svg-highlight)" stroke-width="3"></rect>
+  <text x="645" y="65" text-anchor="middle" class="tl-label" font-weight="700">約10〜60秒後</text>
+  <text x="645" y="90" text-anchor="middle" class="tl-label" font-weight="700">ブラウザに</text>
+  <text x="645" y="108" text-anchor="middle" class="tl-label" font-weight="700">投稿画面が開く</text>
+  <text x="645" y="138" text-anchor="middle" class="tl-label" font-weight="700">内容を確認して</text>
+  <text x="645" y="156" text-anchor="middle" class="tl-label" font-weight="700">「ポストする」</text>
+  <text x="645" y="182" text-anchor="middle" class="tl-sub" font-weight="700">ここだけ手動</text>
+
+  <path class="tl-arrow" d="M742,115 L768,115"></path>
+
+  <!-- box 5 -->
+  <rect x="770" y="70" width="200" height="90" rx="10" fill="var(--svg-window-bg)" stroke="var(--svg-window-border)" stroke-width="2"></rect>
+  <text x="870" y="115" text-anchor="middle" class="tl-label">ゲームに戻る</text>
+</svg>
+</figure>
+<figcaption>図6: 配信開始から投稿までのタイムライン(投稿画面の工程を強調)</figcaption>
+<p class="fig-note">配信開始から投稿画面が開くまでの時間は YouTube 側の反映に左右されます。</p>
+
+<h3>手順</h3>
+<ol>
+  <li><code>start-hidden.vbs</code> をダブルクリックします。画面は何も表示されませんが、バックグラウンドで常駐が始まります(手順6を済ませていれば PC 起動時に自動で始まります)。</li>
+  <li>いつも通り OBS でゲームを起動し、配信を開始します。</li>
+  <li>数十秒後に、自動でブラウザに投稿画面が開きます。</li>
+  <li>内容を確認して「ポストする」を押します。</li>
+</ol>
+<p>
+同じ配信では、投稿画面は1回だけ開きます。
+</p>
+<p>
+止めるときは <code>stop.bat</code> をダブルクリックします。
+</p>
+<p>
+様子を見たい・デバッグしたいときは、画面が表示される <code>start.bat</code> を使うか、常駐中に自動生成される <code>live-tweet.log</code> をメモ帳などで開いて確認してください。
+</p>
+<p>
+すでに常駐している状態でもう一度 <code>start-hidden.vbs</code>(または <code>start.bat</code>)を実行してしまった場合、二重起動は自動的に防止されます(2つ目は起動後すぐに終了します)。
+</p>
+</section>
+
+<section id="fullscreen">
+<h2>9. フルスクリーンのゲーム中に投稿画面が開いたら</h2>
+<div class="box warn">
+  <div class="box-title">注意</div>
+  投稿画面が開くとブラウザが前面に出るため、フルスクリーン(排他)モードで動かしているゲームは最小化されることがあります。プレイ中に画面が急に切り替わって驚かないよう、事前に対策しておくのがおすすめです。
+</div>
+<ul>
+  <li><span class="kw">ゲームを「ボーダーレスウィンドウ」設定にする</span> — 多くのゲームにあるウィンドウモードの一つで、見た目はフルスクリーンのままですが、Alt+Tab などで他のウィンドウに切り替えても表示が崩れません。</li>
+  <li><span class="kw">モニターが2枚あるなら、ブラウザを2枚目のモニターに置く癖をつける</span> — 既定のブラウザは、最後に閉じたときのウィンドウ位置で次に開きます。一度2枚目のモニターに移動しておけば、以降もそちら側で開くようになります。</li>
+  <li><span class="kw">配信開始からゲームを始めるまでに「まもなく開始」画面を1分ほど挟む</span> — その待機時間の間に投稿画面が開いてポストを済ませてしまえば、ゲーム本編に入ってから画面が切り替わる心配がありません。</li>
+</ul>
+<p>
+投稿画面をうっかり閉じてしまっても大丈夫です。<code>test.bat</code> を実行すれば、もう一度投稿画面を開けます。
+</p>
+</section>
+
+<section id="step6">
+<h2>10. 手順6(任意): Windows 起動時に自動開始</h2>
+<ol>
+  <li><code>Win + R</code> を押し、<code>shell:startup</code> と入力して Enter を押します。スタートアップフォルダが開きます。</li>
+  <li><code>start-hidden.vbs</code> を右クリックして「ショートカットの作成」を選びます。</li>
+  <li>作成されたショートカットを、開いておいたスタートアップフォルダに移動(配置)します。</li>
+</ol>
+<p>これで Windows にログインするたびに、自動的にバックグラウンドで常駐が始まります。</p>
+</section>
+
+<section id="trouble">
+<h2>11. 困ったときは</h2>
+<table>
+  <thead><tr><th>症状</th><th>原因</th><th>対処</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>何も起きない・配信を開始しても投稿画面が開かない</td>
+      <td>常駐していない / OBS の WebSocket が無効 / ポート・パスワードが違う</td>
+      <td>常駐していない場合は <code>stop.bat</code> を実行後に <code>start-hidden.vbs</code> を再実行してください。それ以外は <code>live-tweet.log</code> を確認し、手順2の設定を見直してください。</td>
+    </tr>
+    <tr>
+      <td>ログに「OBS WebSocketに接続できません」が続く</td>
+      <td>OBS が起動していない、または WebSocket が無効/ポート・パスワードが違う</td>
+      <td>OBS を起動していない間は正常な表示です(起動すれば自動的に接続します)。それでも続く場合は手順2の設定を確認してください。</td>
+    </tr>
+    <tr>
+      <td>投稿画面がタイトル空で開く</td>
+      <td>最大待ち時間(<code>resolve.timeout_sec</code>)以内にライブ情報を取得できず fallback が動いた</td>
+      <td>手動でタイトルを入力してください。<code>resolve.timeout_sec</code> を増やすと解決する場合があります。</td>
+    </tr>
+    <tr>
+      <td>X のログイン画面が開く</td>
+      <td>ブラウザで X にログインしていない</td>
+      <td>ブラウザで X にログインしてから、もう一度お試しください。</td>
+    </tr>
+    <tr>
+      <td>「config.jsonが見つかりません」と表示される</td>
+      <td>手順3(設定ファイルの作成)が未実施</td>
+      <td>手順3を行って <code>config.json</code> を作成してください。</td>
+    </tr>
+    <tr>
+      <td>「設定エラー」と表示される</td>
+      <td><code>config.json</code> の内容に誤りがある</td>
+      <td>表示されたメッセージに書かれている項目を修正してください。手順3の「JSON の注意」も参照してください。</td>
+    </tr>
+    <tr>
+      <td>同じ配信で2回目の投稿画面が開かない</td>
+      <td>仕様です(同じ配信では1回だけ開きます)</td>
+      <td><code>state.json</code> を削除するか、<code>test.bat</code> でもう一度動作確認できます。</td>
+    </tr>
+    <tr>
+      <td>「WindowsによってPCが保護されました」と表示される</td>
+      <td>Windows のセキュリティ機能による警告</td>
+      <td>「詳細情報」をクリックし、「実行」を選んでください。</td>
+    </tr>
+    <tr>
+      <td>二重に起動したかもしれない</td>
+      <td>すでに常駐している状態で再度起動を試みた</td>
+      <td>2つ目は自動的に終了するため問題ありません。心配な場合は <code>stop.bat</code> を実行してから <code>start-hidden.vbs</code> を実行し直してください。</td>
+    </tr>
+    <tr>
+      <td>ゲームが最小化された・画面が切り替わった</td>
+      <td>投稿画面が開いてブラウザが前面に出たため</td>
+      <td><a href="#fullscreen">「フルスクリーンのゲーム中に投稿画面が開いたら」</a>の対策(ボーダーレスウィンドウ化など)をお試しください。</td>
+    </tr>
+    <tr>
+      <td>投稿画面が開いたのに気づかなかった</td>
+      <td>ゲームが前面のままで、投稿画面が背後で開いていた</td>
+      <td>タスクバーでブラウザのアイコンを確認してください。配信開始直後に「まもなく開始」などの待機画面を挟む運用にすると気づきやすくなります。</td>
+    </tr>
+    <tr>
+      <td>配信タイトルを直前に変えたのに古いタイトルが出た</td>
+      <td>YouTube 側にタイトルが反映される前に情報を取得してしまった</td>
+      <td>ポストする前に手動でタイトルを直してください。配信を始める前にタイトルを確定させておくと発生しにくくなります。</td>
+    </tr>
+  </tbody>
+</table>
+</section>
+
+<section id="limits">
+<h2>12. 制限事項</h2>
+<ul>
+  <li>最後の投稿ボタンは手動です(自動投稿はしません)。</li>
+  <li>ブラウザで X (Twitter) にログインしている必要があります。</li>
+  <li>YouTube のページ構造が変わると取得に失敗する可能性があります。その場合は
+    <code>fallback_open_when_unresolved</code> が <code>true</code> であれば、タイトル空・チャンネルの
+    <code>/live</code> URL で投稿画面が開くので、手動で内容を修正してください。</li>
+  <li>OBS を再インストールした場合は、手順2の WebSocket 設定をやり直す必要があります。</li>
+  <li>ゲームのアンチチート等が理由でブラウザ起動を妨げることはありませんが、フルスクリーン(排他)モード中の画面切り替わり方はゲームによって異なります。</li>
+</ul>
+</section>
+
+<footer>
+YouTube Live Tweet 手順書
+</footer>
+
+</main>
+</body>
+</html>

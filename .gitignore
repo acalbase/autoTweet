@@ -1,0 +1,8 @@
+dist/
+__pycache__/
+*.pyc
+alternatives/powershell/config.json
+alternatives/powershell/state.json
+alternatives/powershell/*.log
+alternatives/python/config.json
+alternatives/python/state.json

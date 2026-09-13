@@ -1,0 +1,10 @@
+{
+  "obs": { "host": "localhost", "port": 4455, "password": "" },
+  "youtube": { "channel": "@your_handle" },
+  "tweet": {
+    "text": "配信はじめました！\n{title}",
+    "include_url": true
+  },
+  "resolve": { "retry_interval_sec": 5, "timeout_sec": 120 },
+  "fallback_open_when_unresolved": true
+}
